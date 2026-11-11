@@ -1,0 +1,8 @@
+build/
+*.out
+*.exe
+*.o
+sol
+input.txt
+output.txt
+.cph/
