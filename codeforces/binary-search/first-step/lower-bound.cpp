@@ -3,20 +3,20 @@
 
 using namespace std;
 
-int find(vector<int>::iterator begin, vector<int>::iterator end, int x) {
-    auto it = begin;
-    auto last = end;
+template <typename T> int lower_bound(const vector<T>& cont, const T& x) { // a[i] >= x
+    int l = -1;
+    int r = cont.size();
 
-    while (last > it) {
-        auto mid = it + (last - it) / 2;
-        if (*mid <= x) {
-            it = mid + 1;
+    while ((l + 1) < r) {
+        auto mid = (r + l) / 2;
+        if (cont[mid] >= x) {
+            r = mid;
         } else {
-            last = mid;
+            l = mid;
         }
     }
 
-    return it - begin;
+    return r + 1;
 }
 
 int main() {
@@ -31,7 +31,7 @@ int main() {
 
     while ((k--) > 0) {
         cin >> x;
-        cout << find(a.begin(), a.end(), x) << "\n";
+        cout << lower_bound<int>(a, x) << "\n";
     }
 
     return 0;
