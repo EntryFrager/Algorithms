@@ -4,12 +4,30 @@
 
 using namespace std;
 
-bool f(int count, int n, vector<int> t, vector<int> z, vector<int> y, int t) {
-    
-    return >= count;
+int ballon_worker(int t, int z, int y, int m) {
+    int loopTime = t * z + y;
+    int countWorkLoops = m / loopTime;
+    int rem = m % loopTime;
+
+    return countWorkLoops * z + (int) min(rem, z * t) / t;
 }
 
-long long find_best(int count, int n, vector<int> t, vector<int> z, vector<int> y) {
+bool f(int count, int n, vector<int>& t, vector<int>& z, vector<int>& y, int m) {
+    int curCount = 0;
+
+    for (int i = 0; i < n; ++i) {
+        curCount += ballon_worker(t[i], z[i], y[i], m);
+        if (curCount >= count)
+            return true;
+    }
+    
+    return false;
+}
+
+long long find_best(int count, int n, vector<int>& t, vector<int>& z, vector<int>& y) {
+    if (count == 0)
+        return 0;
+
     int l = 0;
     int r = 1;
 
@@ -41,7 +59,15 @@ int main() {
         cin >> t[i] >> z[i] >> y[i];
     }
 
-    cout << find_best(m, n, t, z, y) << "\n";
-
+    auto time = find_best(m, n, t, z, y);
+    
+    cout << time << "\n";
+    int remBal = m;
+    for (int i = 0; i < n; ++i) {
+        int bal = min(remBal, ballon_worker(t[i], z[i], y[i], time));
+        cout << bal << " ";
+        remBal -= bal;
+    }
+    
     return 0;
 }
