@@ -26,6 +26,8 @@ long long find_best(long long w, long long h, long long n) {
     return r;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     long long w = 0, h = 0, n = 0;
     cin >> w >> h >> n;
@@ -34,3 +36,28 @@ int main() {
 
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(FindBestTest, SampleCase) {
+    EXPECT_EQ(find_best(2, 3, 10), 9);
+}
+
+TEST(FindBestTest, SingleRectangle) {
+    EXPECT_EQ(find_best(5, 7, 1), 7);
+    EXPECT_EQ(find_best(1, 1, 1), 1);
+}
+
+TEST(FindBestTest, ExactGridFit) {
+    EXPECT_EQ(find_best(2, 2, 4), 4);
+    EXPECT_EQ(find_best(3, 5, 6), 10);
+}
+
+TEST(FindBestTest, NonSquareAndLargeValues) {
+    EXPECT_EQ(find_best(1, 1000000000LL, 1000000000LL), 1000000000LL);
+    EXPECT_EQ(find_best(1000000000LL, 1000000000LL, 1000000000LL), 31623000000000LL);
+}
+
+#endif

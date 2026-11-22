@@ -50,6 +50,8 @@ long long find_min_way(int n, int d, vector<vector<Edge>>& graph, long long max_
     return r;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     int n, m, d;
     cin >> n >> m >> d;
@@ -85,3 +87,85 @@ int main() {
 
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(FindMinWayTest, FirstTest) {
+    int n = 4, d = 2;
+    vector<vector<Edge>> graph(n);
+    vector<tuple<int, int, long long>> edges = {
+        {1, 2, 5},
+        {2, 3, 3},
+        {1, 3, 7},
+        {2, 4, 6},
+        {3, 4, 4}
+    };
+    long long max_cost = 0;
+    for (auto [u, v, c] : edges) {
+        graph[u - 1].push_back({v - 1, c});
+        max_cost = max(max_cost, c);
+    }
+
+    vector<int> way(n, -1);
+    long long ans = find_min_way(n, d, graph, max_cost, way);
+    ASSERT_NE(ans, -1);
+
+    vector<int> path;
+    for (int cur = n - 1; cur != -1; cur = way[cur]) {
+        path.push_back(cur + 1);
+    }
+    reverse(path.begin(), path.end());
+
+    EXPECT_EQ(static_cast<int>(path.size()) - 1, 2);
+    EXPECT_EQ(path, (vector<int>{1, 2, 4}));
+}
+
+TEST(FindMinWayTest, SecondTest) {
+    int n = 3, d = 2;
+    vector<vector<Edge>> graph(n);
+    vector<tuple<int, int, long long>> edges = {
+        {1, 2, 1},
+        {2, 3, 2},
+        {1, 3, 1}
+    };
+    long long max_cost = 0;
+    for (auto [u, v, c] : edges) {
+        graph[u - 1].push_back({v - 1, c});
+        max_cost = max(max_cost, c);
+    }
+
+    vector<int> way(n, -1);
+    long long ans = find_min_way(n, d, graph, max_cost, way);
+    ASSERT_NE(ans, -1);
+
+    vector<int> path;
+    for (int cur = n - 1; cur != -1; cur = way[cur]) {
+        path.push_back(cur + 1);
+    }
+    reverse(path.begin(), path.end());
+
+    EXPECT_EQ(static_cast<int>(path.size()) - 1, 1);
+    EXPECT_EQ(path, (vector<int>{1, 3}));
+}
+
+TEST(FindMinWayTest, ThirdTest) {
+    int n = 3, d = 1;
+    vector<vector<Edge>> graph(n);
+    vector<tuple<int, int, long long>> edges = {
+        {1, 2, 1},
+        {2, 3, 1}
+    };
+    long long max_cost = 0;
+    for (auto [u, v, c] : edges) {
+        graph[u - 1].push_back({v - 1, c});
+        max_cost = max(max_cost, c);
+    }
+
+    vector<int> way(n, -1);
+    long long ans = find_min_way(n, d, graph, max_cost, way);
+    EXPECT_EQ(ans, -1);
+}
+
+#endif

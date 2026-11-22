@@ -40,6 +40,8 @@ unsigned int remove_letters(const string& t, const string& p, const vector<size_
     return l;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     string t, p;
     cin >> t >> p;
@@ -55,3 +57,20 @@ int main() {
 
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(RemoveLettersTest, SampleTest) {
+    string t = "ababcba";
+    string p = "abb";
+    vector<size_t> a = {5, 3, 4, 1, 7, 6, 2};
+    for (auto& idx : a) {
+        --idx;
+    }
+
+    EXPECT_EQ(remove_letters(t, p, a), 3u);
+}
+
+#endif

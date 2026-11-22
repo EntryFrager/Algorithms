@@ -46,6 +46,8 @@ long double find_min_time(int n, vector<long long> x, vector<long long> v) {
     return r;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     int n;
     cin >> n;
@@ -62,3 +64,16 @@ int main() {
 
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(FindMinTimeTest, SampleTest) {
+    int n = 5;
+    vector<long long> x = {-1, 10, 4, 7, 8};
+    vector<long long> v = {5, 3, 2, 10, 1};
+    EXPECT_NEAR(find_min_time(n, x, v), 1.5L, 1e-6L);
+}
+
+#endif

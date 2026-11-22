@@ -43,6 +43,8 @@ long long find_min_sum(int n, int k, vector<long long> a) {
     return r;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     int n, k;
     cin >> n >> k;
@@ -57,3 +59,15 @@ int main() {
 
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(FindMinSumTest, SampleTest) {
+    int n = 10, k = 4;
+    vector<long long> a = {1, 3, 2, 4, 10, 8, 4, 2, 5, 3};
+    EXPECT_EQ(find_min_sum(n, k, a), 12LL);
+}
+
+#endif

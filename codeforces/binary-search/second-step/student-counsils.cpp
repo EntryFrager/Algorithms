@@ -31,6 +31,8 @@ long long find_counsils(size_t k, const vector<long long>& a) {
     return l;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     size_t k, n;
     cin >> k >> n;
@@ -41,3 +43,21 @@ int main() {
     cout << find_counsils(k, a);
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(FindCouncilsTest, FirstTest) {
+    size_t k = 3;
+    vector<long long> a = {4, 4, 4, 4, 4};
+    EXPECT_EQ(find_counsils(k, a), 6);
+}
+
+TEST(FindCouncilsTest, SecondTest) {
+    size_t k = 4;
+    vector<long long> a = {1, 2, 3, 4, 5, 6};
+    EXPECT_EQ(find_counsils(k, a), 5);
+}
+
+#endif

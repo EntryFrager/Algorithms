@@ -48,6 +48,8 @@ long long find_best(int count, int n, vector<int>& t, vector<int>& z, vector<int
     return r;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     int m, n;
     cin >> m >> n;
@@ -71,3 +73,28 @@ int main() {
     
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(BalloonTest, SampleTest) {
+    int m = 1, n = 2;
+    vector<int> t = {2, 1};
+    vector<int> z = {1, 1};
+    vector<int> y = {1, 2};
+
+    auto time = find_best(m, n, t, z, y);
+    EXPECT_EQ(time, 1);
+
+    vector<int> got;
+    int remBal = m;
+    for (int i = 0; i < n; ++i) {
+        int bal = min(remBal, ballon_worker(t[i], z[i], y[i], time));
+        got.push_back(bal);
+        remBal -= bal;
+    }
+    EXPECT_EQ(got, (vector<int>{0, 1}));
+}
+
+#endif

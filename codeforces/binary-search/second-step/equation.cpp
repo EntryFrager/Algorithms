@@ -29,6 +29,8 @@ long double my_find(long double c) {
     return (r + l) / 2;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     long double c = 0.0;
     cin >> c;
@@ -37,3 +39,17 @@ int main() {
 
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(EquationSolverTest, FirstTest) {
+    EXPECT_NEAR(my_find(2.0L), 1.0L, 1e-6L);
+}
+
+TEST(EquationSolverTest, SecondTest) {
+    EXPECT_NEAR(my_find(15.6L), 3.698232168829691L, 1e-6L);
+}
+
+#endif

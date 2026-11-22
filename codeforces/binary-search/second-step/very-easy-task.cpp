@@ -33,6 +33,8 @@ long long find_best(long long n, int x, int y) {
     return r;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     long long n = 0;
     int x = 0, y = 0;
@@ -42,3 +44,17 @@ int main() {
 
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(FindBestTest, FirstTest) {
+    EXPECT_EQ(find_best(4, 1, 1), 3);
+}
+
+TEST(FindBestTest, SecondTest) {
+    EXPECT_EQ(find_best(5, 1, 2), 4);
+}
+
+#endif

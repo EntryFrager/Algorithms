@@ -31,6 +31,8 @@ long long hamburgers_count(const vector<int>& recipe, const vector<int>& n, cons
     return l;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     string recipeStr;
     cin >> recipeStr;
@@ -55,3 +57,36 @@ int main() {
     cout << hamburgers_count(recipe, n, p, money);
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(HamburgersTest, FirstTest) {
+    vector<int> recipe = {3, 2, 1};
+    vector<int> n = {6, 4, 1};
+    vector<int> p = {1, 2, 3};
+    long long money = 4;
+
+    EXPECT_EQ(hamburgers_count(recipe, n, p, money), 2LL);
+}
+
+TEST(HamburgersTest, SecondTest) {
+    vector<int> recipe = {2, 0, 1};
+    vector<int> n = {1, 10, 1};
+    vector<int> p = {1, 10, 1};
+    long long money = 21;
+
+    EXPECT_EQ(hamburgers_count(recipe, n, p, money), 7LL);
+}
+
+// TEST(HamburgersTest, ThirdTest) {
+//     vector<int> recipe = {1, 1, 1};
+//     vector<int> n = {1, 1, 3};
+//     vector<int> p = {1, 1, 1};
+//     long long money = 1000000000000LL;
+
+//     EXPECT_EQ(hamburgers_count(recipe, n, p, money), 200000000001LL);
+// }
+
+#endif

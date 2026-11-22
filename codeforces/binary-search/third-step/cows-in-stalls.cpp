@@ -38,6 +38,8 @@ long long find_min_distance(int n, int k, vector<long long> a) {
     return l;
 }
 
+#ifndef LOCAL_TESTS
+
 int main() {
     int n, k;
     cin >> n >> k;
@@ -52,3 +54,15 @@ int main() {
 
     return 0;
 }
+
+#else
+
+#include <gtest/gtest.h>
+
+TEST(FindMinDistanceTest, SampleTest) {
+    int n = 6, k = 3;
+    vector<long long> a = {2, 5, 7, 11, 15, 20};
+    EXPECT_EQ(find_min_distance(n, k, a), 9LL);
+}
+
+#endif
